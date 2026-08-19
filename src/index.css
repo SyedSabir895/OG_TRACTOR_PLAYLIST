@@ -1,21 +1,24 @@
 :root {
-  --text: #f3ecd8;
-  --text-h: #fff8e7;
-  --bg: #1c1408;
-  --border: rgba(255, 214, 120, 0.25);
-  --accent: #e8562c;
-  --accent-2: #f2b705;
-  --panel: rgba(28, 20, 8, 0.72);
-  --panel-2: rgba(40, 28, 12, 0.85);
-  --shadow: rgba(0, 0, 0, 0.5) 0 10px 25px -5px;
+  --ink: #12090b;
+  --cream: #f6efe2;
+  --cream-dim: rgba(246, 239, 226, 0.62);
+  --rust: #e2532a;
+  --rust-hot: #ff6b3d;
+  --ochre: #f0a821;
+  --border: rgba(246, 239, 226, 0.14);
+  --glass: rgba(24, 12, 8, 0.62);
+  --glass-solid: rgba(20, 10, 6, 0.92);
+  --shadow-lg: 0 24px 60px -12px rgba(0, 0, 0, 0.75);
+  --shadow-sm: 0 6px 18px -6px rgba(0, 0, 0, 0.6);
 
-  --sans: 'Segoe UI', system-ui, Roboto, sans-serif;
-  --heading: Georgia, 'Segoe UI', serif;
+  --display: 'Anton', 'Impact', sans-serif;
+  --script: 'Playfair Display', Georgia, serif;
+  --sans: 'Inter', system-ui, 'Segoe UI', sans-serif;
 
-  font: 17px/145% var(--sans);
+  font: 400 16px/1.5 var(--sans);
+  color: var(--cream);
+  background: var(--ink);
   color-scheme: dark;
-  color: var(--text);
-  background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -28,6 +31,7 @@
 
 body {
   margin: 0;
+  overflow: hidden;
 }
 
 #root {
@@ -35,12 +39,30 @@ body {
   min-height: 100svh;
 }
 
-h1, h2, h3 {
-  font-family: var(--heading);
-  color: var(--text-h);
+h1,
+h2,
+h3 {
   margin: 0;
 }
 
 p {
   margin: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(246, 239, 226, 0.2);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(246, 239, 226, 0.35);
 }
