@@ -22,8 +22,19 @@ const thumbOf = (song, fallback) =>
   song.thumb ? `${R2_BASE}/covers/${encodeURIComponent(song.thumb)}` : fallback
 
 /* ---------- icons ---------- */
-const Icon = ({ d, size = 20, fill = 'currentColor' }) => (
-  <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} aria-hidden="true">
+const Icon = ({ d, size = 20, fill = 'currentColor', stroke, className }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    fill={stroke ? 'none' : fill}
+    stroke={stroke}
+    strokeWidth={stroke ? 2 : undefined}
+    strokeLinecap={stroke ? 'round' : undefined}
+    strokeLinejoin={stroke ? 'round' : undefined}
+    className={className}
+    aria-hidden="true"
+  >
     <path d={d} />
   </svg>
 )
@@ -40,6 +51,8 @@ const PATH = {
   volume: 'M4 9h3.5L12 5v14L7.5 15H4V9Zm11.5-.6a5 5 0 0 1 0 7.2l-1.4-1.4a3 3 0 0 0 0-4.4l1.4-1.4Z',
   mute: 'M4 9h3.5L12 5v14L7.5 15H4V9Zm11 1.6 1.4-1.4 1.8 1.8 1.8-1.8 1.4 1.4-1.8 1.8 1.8 1.8-1.4 1.4-1.8-1.8-1.8 1.8-1.4-1.4 1.8-1.8-1.8-1.8Z',
   close: 'm6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12 19 17.6 17.6 19 12 13.4 6.4 19 5 17.6 10.6 12 5 6.4 6.4 5Z',
+  chevron: 'M6 9l6 6 6-6',
+  check: 'M4.5 12.5 9 17l10.5-10.5',
 }
 
 const ALL_LANGS = 'All'
@@ -58,7 +71,9 @@ function App() {
   const [shuffle, setShuffle] = useState(false)
   const [repeat, setRepeat] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [langOpen, setLangOpen] = useState(false)
   const audioRef = useRef(null)
+  const langRef = useRef(null)
 
   /* load manifest */
   useEffect(() => {
@@ -180,6 +195,21 @@ function App() {
     if (audioRef.current && duration) audioRef.current.currentTime = ratio * duration
   }
 
+  /* close language dropdown on outside click / escape */
+  useEffect(() => {
+    if (!langOpen) return
+    const onDown = (e) => {
+      if (langRef.current && !langRef.current.contains(e.target)) setLangOpen(false)
+    }
+    const onEsc = (e) => e.key === 'Escape' && setLangOpen(false)
+    window.addEventListener('mousedown', onDown)
+    window.addEventListener('keydown', onEsc)
+    return () => {
+      window.removeEventListener('mousedown', onDown)
+      window.removeEventListener('keydown', onEsc)
+    }
+  }, [langOpen])
+
   const pct = useMemo(
     () => (duration ? (progress / duration) * 100 : 0),
     [progress, duration]
@@ -214,17 +244,39 @@ function App() {
         <h1 className="wordmark">OG Tractor</h1>
         <p className="script">Playlist</p>
         <span className="count">{songs.length} tracks · {fmtTotal(totalRuntime)}</span>
-        {languages.length > 2 && (
-          <select
-            className="lang-select"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-            aria-label="Filter by language"
-          >
-            {languages.map((l) => (
-              <option key={l} value={l}>{l}</option>
-            ))}
-          </select>
+        {languages.length > 1 && (
+          <div className="lang-dropdown" ref={langRef}>
+            <button
+              type="button"
+              className={`lang-trigger ${langOpen ? 'open' : ''}`}
+              onClick={() => setLangOpen((o) => !o)}
+              aria-haspopup="listbox"
+              aria-expanded={langOpen}
+            >
+              <span>{language}</span>
+              <Icon d={PATH.chevron} size={14} stroke="currentColor" className="lang-chevron" />
+            </button>
+            <ul className={`lang-menu ${langOpen ? 'open' : ''}`} role="listbox">
+              {languages.map((l, i) => (
+                <li
+                  key={l}
+                  role="option"
+                  aria-selected={l === language}
+                  className={`lang-option ${l === language ? 'selected' : ''}`}
+                  style={{ transitionDelay: langOpen ? `${i * 28}ms` : '0ms' }}
+                  onClick={() => {
+                    setLanguage(l)
+                    setLangOpen(false)
+                  }}
+                >
+                  <span>{l}</span>
+                  {l === language && (
+                    <Icon d={PATH.check} size={13} stroke="currentColor" />
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
       </header>
 
