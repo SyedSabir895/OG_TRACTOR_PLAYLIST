@@ -1,0 +1,46 @@
+:root {
+  --text: #f3ecd8;
+  --text-h: #fff8e7;
+  --bg: #1c1408;
+  --border: rgba(255, 214, 120, 0.25);
+  --accent: #e8562c;
+  --accent-2: #f2b705;
+  --panel: rgba(28, 20, 8, 0.72);
+  --panel-2: rgba(40, 28, 12, 0.85);
+  --shadow: rgba(0, 0, 0, 0.5) 0 10px 25px -5px;
+
+  --sans: 'Segoe UI', system-ui, Roboto, sans-serif;
+  --heading: Georgia, 'Segoe UI', serif;
+
+  font: 17px/145% var(--sans);
+  color-scheme: dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  width: 100%;
+  min-height: 100svh;
+}
+
+h1, h2, h3 {
+  font-family: var(--heading);
+  color: var(--text-h);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}

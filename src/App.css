@@ -1,0 +1,258 @@
+.app-bg {
+  position: relative;
+  min-height: 100svh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  border: 10px solid #2a2a2a;
+  box-sizing: border-box;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.55) 100%);
+  pointer-events: none;
+}
+
+.site-header {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  text-align: right;
+  z-index: 2;
+}
+
+.site-header h1 {
+  font-size: 64px;
+  color: #f2ede4;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
+  letter-spacing: 1px;
+}
+
+.tagline {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 28px;
+  color: #ece6da;
+  opacity: 0.9;
+}
+
+.spotify-pill {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 15, 15, 0.85);
+  color: #f3ecd8;
+  padding: 10px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: var(--shadow);
+}
+
+.spotify-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #1db954;
+}
+
+.song-list {
+  position: absolute;
+  bottom: 110px;
+  left: 24px;
+  z-index: 3;
+  list-style: none;
+  margin: 0;
+  padding: 8px;
+  width: 340px;
+  max-width: calc(100% - 48px);
+  background: rgba(15, 10, 5, 0.88);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  backdrop-filter: blur(6px);
+}
+
+.song-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.song-row:hover {
+  background: rgba(255, 214, 120, 0.1);
+}
+
+.song-row.active {
+  background: rgba(232, 86, 44, 0.3);
+}
+
+.song-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.song-title {
+  color: var(--text-h);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.song-artist {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.song-duration {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* Floating player card */
+.player-bar {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px 10px 10px;
+  background: linear-gradient(90deg, rgba(20, 10, 5, 0.92), rgba(60, 20, 10, 0.88));
+  border-radius: 999px;
+  border: 1px solid rgba(255, 180, 120, 0.15);
+  box-shadow: var(--shadow);
+  max-width: calc(100% - 48px);
+}
+
+.album-art {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.np-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+  max-width: 180px;
+}
+
+.np-title {
+  color: var(--text-h);
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.np-artist {
+  font-size: 12px;
+  opacity: 0.65;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progress-wrap {
+  width: 220px;
+}
+
+.progress-track {
+  position: relative;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.progress-fill {
+  height: 100%;
+  background: #f3ecd8;
+  border-radius: 2px;
+}
+
+.progress-thumb {
+  position: absolute;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, -50%);
+}
+
+.time {
+  font-size: 12px;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ctrl-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-h);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  line-height: 1;
+}
+
+.ctrl-btn:hover {
+  background: rgba(255, 214, 120, 0.15);
+}
+
+.ctrl-btn.play {
+  background: #fff;
+  color: #1a1a1a;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+@media (max-width: 700px) {
+  .site-header {
+    left: 24px;
+    right: 24px;
+    text-align: center;
+  }
+  .site-header h1 {
+    font-size: 40px;
+  }
+  .tagline {
+    font-size: 20px;
+  }
+  .player-bar {
+    left: 12px;
+    right: 12px;
+    flex-wrap: wrap;
+    border-radius: 20px;
+  }
+  .progress-wrap {
+    order: 4;
+    width: 100%;
+  }
+}
