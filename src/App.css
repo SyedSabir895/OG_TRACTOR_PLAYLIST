@@ -441,6 +441,24 @@
   color: var(--cream-dim);
 }
 
+.credit {
+  position: fixed;
+  z-index: 3;
+  top: 16px;
+  left: 16px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: rgba(246, 239, 226, 0.4);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.credit:hover { color: var(--rust-hot); }
+
+@media (max-width: 720px) {
+  .credit { top: auto; bottom: 100px; left: 50%; transform: translateX(-50%); }
+}
+
 /* ============ dock / player ============ */
 .dock {
   position: fixed;

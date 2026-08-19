@@ -26,7 +26,6 @@ async function uploadToR2(uploadUrl, file) {
 function AdminPage() {
   const [password, setPassword] = useState('')
   const [title, setTitle] = useState('')
-  const [artist, setArtist] = useState('')
   const [language, setLanguage] = useState(LANG_OPTIONS[0])
   const [songFile, setSongFile] = useState(null)
   const [coverFile, setCoverFile] = useState(null)
@@ -69,7 +68,6 @@ function AdminPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           title: title.trim(),
-          artist: artist.trim() || 'Unknown',
           language,
           file: songPre.key,
           thumb: thumbKey,
@@ -80,7 +78,6 @@ function AdminPage() {
 
       setStatus(`Added "${title}" ✓`)
       setTitle('')
-      setArtist('')
       setSongFile(null)
       setCoverFile(null)
       e.target.reset()
@@ -112,11 +109,6 @@ function AdminPage() {
           <label>
             Title
             <input value={title} onChange={(e) => setTitle(e.target.value)} />
-          </label>
-
-          <label>
-            Artist (optional)
-            <input value={artist} onChange={(e) => setArtist(e.target.value)} />
           </label>
 
           <label>

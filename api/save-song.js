@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   }
   if (!checkAuth(req, res)) return
 
-  const { title, artist, language, file, thumb } = req.body || {}
+  const { title, language, file, thumb } = req.body || {}
   if (!title || !file) {
     res.status(400).json({ error: 'Missing title or file' })
     return
@@ -40,7 +40,6 @@ export default async function handler(req, res) {
 
   songs.push({
     title,
-    artist: artist || 'Unknown',
     language: language || 'Other',
     file,
     thumb: thumb || null,

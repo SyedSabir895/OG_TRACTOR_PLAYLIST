@@ -297,7 +297,6 @@ function App() {
               {isPlaying ? 'Now playing' : 'Paused'}
             </span>
             <h2 className="hero-title">{song.title}</h2>
-            <p className="hero-artist">{song.artist}</p>
           </div>
         </section>
       )}
@@ -335,7 +334,6 @@ function App() {
               <span className="q-num">{String(i + 1).padStart(2, '0')}</span>
               <span className="q-meta">
                 <span className="q-title">{s.title}</span>
-                <span className="q-artist">{s.artist}</span>
               </span>
               <span className="q-dur">{fmt(durations[i])}</span>
             </li>
@@ -349,7 +347,6 @@ function App() {
             <div className={`mini-art ${isPlaying ? 'lit' : ''}`} style={{ backgroundImage: `url(${thumbOf(song, bgImg)})` }} />
             <div className="dock-meta">
               <span className="dock-title">{song.title}</span>
-              <span className="dock-artist">{song.artist}</span>
             </div>
           </div>
 
@@ -424,6 +421,15 @@ function App() {
           </div>
         </footer>
       )}
+
+      <a
+        className="credit"
+        href="https://www.instagram.com/chotu_syed_"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Created by Syed Sabir · @chotu_syed_
+      </a>
     </div>
   )
 }
