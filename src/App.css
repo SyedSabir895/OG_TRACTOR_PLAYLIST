@@ -103,6 +103,25 @@
   backdrop-filter: blur(8px);
 }
 
+.lang-select {
+  display: block;
+  margin-top: 10px;
+  margin-left: auto;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(20, 10, 6, 0.5);
+  color: var(--cream);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+.lang-select:hover { border-color: var(--rust-hot); }
+.lang-select option { background: #1a0f08; color: var(--cream); }
+
 @keyframes rise {
   from { opacity: 0; transform: translateY(18px); }
   to   { opacity: 1; transform: none; }

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import bgImg from './assets/1.png'
-import { R2_BASE } from './config'
+import { R2_BASE, SONGS_META_URL } from './config'
 import './App.css'
 
 const fmt = (sec) => {
@@ -42,8 +42,11 @@ const PATH = {
   close: 'm6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12 19 17.6 17.6 19 12 13.4 6.4 19 5 17.6 10.6 12 5 6.4 6.4 5Z',
 }
 
+const ALL_LANGS = 'All'
+
 function App() {
-  const [songs, setSongs] = useState([])
+  const [allSongs, setAllSongs] = useState([])
+  const [language, setLanguage] = useState(ALL_LANGS)
   const [durations, setDurations] = useState({})
   const [current, setCurrent] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -59,22 +62,48 @@ function App() {
 
   /* load manifest */
   useEffect(() => {
-    fetch('/songs/songs.json')
+    fetch(SONGS_META_URL, { cache: 'no-store' })
       .then((r) => r.json())
       .then((list) => {
-        setSongs(list)
+        setAllSongs(list)
         setLoading(false)
-        list.forEach((s, i) => {
-          const probe = new Audio()
-          probe.preload = 'metadata'
-          probe.src = srcOf(s)
-          probe.addEventListener('loadedmetadata', () =>
-            setDurations((d) => ({ ...d, [i]: probe.duration }))
-          )
-        })
       })
       .catch(() => setLoading(false))
   }, [])
+
+  const languages = useMemo(() => {
+    const set = new Set(allSongs.map((s) => s.language || 'Other'))
+    return [ALL_LANGS, ...Array.from(set).sort()]
+  }, [allSongs])
+
+  const songs = useMemo(
+    () =>
+      language === ALL_LANGS
+        ? allSongs
+        : allSongs.filter((s) => (s.language || 'Other') === language),
+    [allSongs, language]
+  )
+
+  /* preload durations for current filtered list */
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setDurations({})
+    songs.forEach((s, i) => {
+      const probe = new Audio()
+      probe.preload = 'metadata'
+      probe.src = srcOf(s)
+      probe.addEventListener('loadedmetadata', () =>
+        setDurations((d) => ({ ...d, [i]: probe.duration }))
+      )
+    })
+  }, [songs])
+
+  /* reset selection when language filter changes */
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setCurrent(0)
+    setIsPlaying(false)
+  }, [language])
 
   const song = songs[current]
 
@@ -185,6 +214,18 @@ function App() {
         <h1 className="wordmark">OG Tractor</h1>
         <p className="script">Playlist</p>
         <span className="count">{songs.length} tracks · {fmtTotal(totalRuntime)}</span>
+        {languages.length > 2 && (
+          <select
+            className="lang-select"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+            aria-label="Filter by language"
+          >
+            {languages.map((l) => (
+              <option key={l} value={l}>{l}</option>
+            ))}
+          </select>
+        )}
       </header>
 
       {song && (
@@ -211,7 +252,7 @@ function App() {
 
       {loading && <div className="loader">Loading playlist…</div>}
       {!loading && !songs.length && (
-        <div className="loader">No songs found in /public/songs</div>
+        <div className="loader">No songs found{language !== ALL_LANGS ? ` in ${language}` : ''}</div>
       )}
 
       <aside className={`queue-panel ${showQueue ? 'open' : ''}`}>
