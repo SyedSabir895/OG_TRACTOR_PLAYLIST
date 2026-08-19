@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import bgImg from './assets/1.png'
+import { R2_BASE } from './config'
 import './App.css'
 
 const fmt = (sec) => {
@@ -16,9 +17,9 @@ const fmtTotal = (sec) => {
   return h > 0 ? `${h} hr ${m} min` : `${m} min`
 }
 
-const srcOf = (song) => `/songs/${encodeURIComponent(song.file)}`
+const srcOf = (song) => `${R2_BASE}/songs/${encodeURIComponent(song.file)}`
 const thumbOf = (song, fallback) =>
-  song.thumb ? `/thumbs/${encodeURIComponent(song.thumb)}` : fallback
+  song.thumb ? `${R2_BASE}/covers/${encodeURIComponent(song.thumb)}` : fallback
 
 /* ---------- icons ---------- */
 const Icon = ({ d, size = 20, fill = 'currentColor' }) => (

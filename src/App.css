@@ -16,21 +16,29 @@
   pointer-events: none;
 }
 
-.bg {
+/* .bg {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: var(--ink);
+  filter: contrast(1.1) saturate(0.85) brightness(0.8);
+} */
+ .bg {
   background-size: cover;
-  background-position: center 35%;
+  background-position: center;
+  background-repeat: no-repeat;
   filter: contrast(1.15) saturate(0.75) brightness(0.72);
 }
 
 .bg-wash {
   background:
-    linear-gradient(115deg, rgba(203, 58, 20, 0.62) 0%, rgba(140, 28, 10, 0.5) 45%, rgba(18, 9, 11, 0.72) 100%),
-    linear-gradient(0deg, rgba(12, 6, 6, 0.92) 0%, transparent 42%);
+    linear-gradient(115deg, rgba(203, 58, 20, 0.55) 0%, rgba(140, 28, 10, 0.42) 45%, rgba(18, 9, 11, 0.62) 100%),
+    linear-gradient(0deg, rgba(12, 6, 6, 0.88) 0%, transparent 38%);
   mix-blend-mode: multiply;
 }
 
 .vignette {
-  background: radial-gradient(ellipse at 50% 45%, transparent 32%, rgba(0, 0, 0, 0.66) 100%);
+  background: radial-gradient(ellipse at 50% 45%, transparent 34%, rgba(0, 0, 0, 0.6) 100%);
 }
 
 .grain {
